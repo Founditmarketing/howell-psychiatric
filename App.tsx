@@ -8,6 +8,7 @@ import FeaturedModels from './components/FeaturedModels';
 import AIQuote from './components/AIQuote';
 import Footer from './components/Footer';
 import ConfigureBuild from './components/ConfigureBuild';
+import DesignStudio from './components/DesignStudio';
 import DealershipLocator from './components/DealershipLocator';
 import Testimonials from './components/Testimonials';
 import About from './components/About';
@@ -52,6 +53,14 @@ const ConfigurePage: React.FC = () => (
   <>
     <Navbar />
     <ConfigureBuild />
+    <Footer />
+  </>
+);
+
+const DesignStudioPage: React.FC = () => (
+  <>
+    <Navbar />
+    <DesignStudio />
     <Footer />
   </>
 );
@@ -121,6 +130,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/models" element={<ModelsPage />} />
           <Route path="/configure" element={<ConfigurePage />} />
+          <Route path="/design-studio" element={<DesignStudioPage />} />
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />

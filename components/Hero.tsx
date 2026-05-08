@@ -6,12 +6,7 @@ import { motion } from 'framer-motion';
 const Hero: React.FC = () => {
   const navigate = useNavigate();
 
-  const scrollToDesign = () => {
-    const element = document.getElementById('design-studio');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -70,15 +65,17 @@ const Hero: React.FC = () => {
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-5">
-            <button 
-              onClick={() => navigate('/models')}
+            <a 
+              href="https://lonestarsheds.shedsuite.com/shop-inventory/embed"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-gold-500 hover:bg-gold-400 text-slate-900 px-8 py-4.5 rounded-full font-bold transition-all flex items-center justify-center gap-3 group shadow-xl shadow-gold-500/20 text-lg"
             >
               View Inventory
               <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform" />
-            </button>
+            </a>
             <button 
-              onClick={scrollToDesign}
+              onClick={() => navigate('/design-studio')}
               className="glass text-white px-8 py-4.5 rounded-full font-bold transition-all shadow-xl hover:bg-white/20 flex items-center justify-center gap-3 group text-lg"
             >
               <Wrench size={20} className="text-gold-400 group-hover:rotate-12 transition-transform" />

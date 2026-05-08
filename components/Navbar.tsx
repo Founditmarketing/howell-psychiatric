@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
         { label: 'Deluxe', path: '/models?category=Deluxe' }
       ]
     },
-    { label: 'Design Studio', id: 'design-studio', path: '/configure' },
+    { label: 'Design Studio', id: 'design-studio', path: '/design-studio' },
     { label: 'About Us', id: 'about', path: '/about' },
     { label: 'Locations', id: 'locations', path: '/locations' },
   ];
