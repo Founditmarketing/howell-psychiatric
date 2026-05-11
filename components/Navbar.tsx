@@ -54,7 +54,8 @@ const Navbar: React.FC = () => {
         { label: 'Garages', path: '/models?category=Garages' },
         { label: 'Barns', path: '/models?category=Barns' },
         { label: 'Cabins', path: '/models?category=Cabins' },
-        { label: 'Cottages', path: '/models?category=Cottages' },
+        { label: 'Cottages', path: '/shed-booklet_cottages-no-bleeds-of_REDUCED-1.pdf', external: true },
+        { label: 'More Cottages', path: '/models?category=Cottages' },
         { label: 'Utility Buildings', path: '/models?category=Utility Buildings' },
         { label: 'Deluxe', path: '/models?category=Deluxe' }
       ]
@@ -110,13 +111,25 @@ const Navbar: React.FC = () => {
                   <div className="absolute top-full left-0 w-48 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                     <div className="bg-white rounded-2xl shadow-xl shadow-wood-900/10 border border-wood-100 flex flex-col overflow-hidden py-2">
                       {item.dropdown.map(sub => (
-                        <Link 
-                          key={sub.label}
-                          to={sub.path}
-                          className="px-5 py-2.5 text-sm font-semibold text-slate-700 hover:text-wood-900 hover:bg-wood-50 transition-colors text-left"
-                        >
-                          {sub.label}
-                        </Link>
+                        sub.external ? (
+                          <a
+                            key={sub.label}
+                            href={sub.path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2.5 text-sm font-semibold text-slate-700 hover:text-wood-900 hover:bg-wood-50 transition-colors text-left"
+                          >
+                            {sub.label}
+                          </a>
+                        ) : (
+                          <Link 
+                            key={sub.label}
+                            to={sub.path!}
+                            className="px-5 py-2.5 text-sm font-semibold text-slate-700 hover:text-wood-900 hover:bg-wood-50 transition-colors text-left"
+                          >
+                            {sub.label}
+                          </Link>
+                        )
                       ))}
                     </div>
                   </div>
@@ -192,14 +205,27 @@ const Navbar: React.FC = () => {
                     {item.dropdown && (
                       <div className="flex flex-col gap-3 mt-4 pl-4 border-l border-wood-200">
                         {item.dropdown.map(sub => (
-                          <Link 
-                            key={sub.label}
-                            to={sub.path}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="text-lg font-semibold text-slate-600 hover:text-wood-900 transition-colors"
-                          >
-                            {sub.label}
-                          </Link>
+                          sub.external ? (
+                            <a
+                              key={sub.label}
+                              href={sub.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-lg font-semibold text-slate-600 hover:text-wood-900 transition-colors"
+                            >
+                              {sub.label}
+                            </a>
+                          ) : (
+                            <Link 
+                              key={sub.label}
+                              to={sub.path!}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-lg font-semibold text-slate-600 hover:text-wood-900 transition-colors"
+                            >
+                              {sub.label}
+                            </Link>
+                          )
                         ))}
                       </div>
                     )}

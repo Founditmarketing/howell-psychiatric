@@ -98,20 +98,7 @@ export const DEALERSHIPS: Dealership[] = [
     mapLink: generateMapLink("2635 S Jefferson, Mt Pleasant, TX 75455"),
     image: "/images/real/scraped-19.jpeg"
   },
-  {
-    id: 'gainesville-john',
-    city: "Gainesville",
-    state: "TX",
-    zip: "76240",
-    contactName: "John Patterson",
-    phone: "903-345-5707",
-    cell: "903-744-5374",
-    email: "sales@82buildingcompany.com",
-    address: "7803 E Hwy 82, Gainesville, TX 76240",
-    name: "82 Building Company",
-    mapLink: generateMapLink("7803 E Hwy 82, Gainesville, TX 76240"),
-    image: "/images/real/scraped-22.jpeg"
-  },
+
   {
     id: 'sulphur-springs-clarence',
     city: "Sulphur Springs",

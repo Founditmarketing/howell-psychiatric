@@ -12,9 +12,89 @@ const Models: React.FC = () => {
 
   const categoryFilter = searchParams.get('category');
 
-  const filteredModels = categoryFilter
+  let filteredModels = categoryFilter
     ? MODELS.filter(m => m.category === categoryFilter)
-    : MODELS;
+    : [...MODELS];
+
+  if (categoryFilter === 'Garages') {
+    const garageOrder = [
+      'Hardie Utility Garage',
+      'Hardie Lofted Garage',
+      'Painted Dutchlap Lofted Garage',
+      'Utility Garage',
+      'Painted Dutchlap Utility Garage',
+      'Painted Utility Garage',
+      'Painted Lofted Garage',
+      'Wood Lofted Garage'
+    ];
+    
+    filteredModels.sort((a, b) => {
+      let indexA = garageOrder.indexOf(a.name);
+      let indexB = garageOrder.indexOf(b.name);
+      // If not in the list, put them at the end
+      if (indexA === -1) indexA = 999;
+      if (indexB === -1) indexB = 999;
+      return indexA - indexB;
+    });
+  } else if (categoryFilter === 'Barns') {
+    const barnOrder = [
+      'Wood & Painted Low Wall Barn',
+      'Low Wall Barn',
+      'Hardie Lofted Barn',
+      'Hardie Side Lofted Barn',
+      'Lofted Barn',
+      'Painted Dutchlap Lofted Barn',
+      'Painted Dutchlap Side Lofted Barn',
+      'Side Lofted Painted Barn',
+      'Wood Side Lofted Barn',
+      'Painted Lofted Barn'
+    ];
+    
+    filteredModels.sort((a, b) => {
+      let indexA = barnOrder.findIndex(name => name.toLowerCase() === a.name.toLowerCase());
+      let indexB = barnOrder.findIndex(name => name.toLowerCase() === b.name.toLowerCase());
+      
+      if (indexA === -1) indexA = 999;
+      if (indexB === -1) indexB = 999;
+      return indexA - indexB;
+    });
+  } else if (categoryFilter === 'Utility Buildings') {
+    const utilityOrder = [
+      'Side Utility',
+      'Hardie Side Utility',
+      'Painted Side Utility',
+      'Wood Side Utility',
+      'Wood Utility',
+      'Utility',
+      'Painted Dutchlap Utility',
+      'Painted Dutchlap Side Utility'
+    ];
+    
+    filteredModels.sort((a, b) => {
+      let indexA = utilityOrder.findIndex(name => name.toLowerCase() === a.name.toLowerCase());
+      let indexB = utilityOrder.findIndex(name => name.toLowerCase() === b.name.toLowerCase());
+      
+      if (indexA === -1) indexA = 999;
+      if (indexB === -1) indexB = 999;
+      return indexA - indexB;
+    });
+  } else if (categoryFilter === 'Deluxe') {
+    const deluxeOrder = [
+      'Hardie Side Lofted Deluxe',
+      'Side Lofted Deluxe',
+      'Hardie Side Utility Deluxe',
+      'Painted Dultchlap Side Utility Deluxe'
+    ];
+    
+    filteredModels.sort((a, b) => {
+      let indexA = deluxeOrder.findIndex(name => name.toLowerCase() === a.name.toLowerCase());
+      let indexB = deluxeOrder.findIndex(name => name.toLowerCase() === b.name.toLowerCase());
+      
+      if (indexA === -1) indexA = 999;
+      if (indexB === -1) indexB = 999;
+      return indexA - indexB;
+    });
+  }
 
   const handleCustomize = (model: ShedModel) => {
     navigate(`/configure?style=${model.configKey}`);
@@ -71,84 +151,7 @@ const Models: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-24">
-        {categoryFilter === 'Cottages' && (
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-24 flex flex-col gap-16"
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-5xl font-serif font-bold text-slate-900 mb-8 relative inline-block tracking-wide">
-                  C O T T A G E S
-                  <div className="absolute -bottom-3 left-0 w-24 h-1 bg-gold-500 rounded-full"></div>
-                </h2>
-                <div className="space-y-6 text-lg text-slate-700 font-light leading-relaxed">
-                  <p>
-                    Do you remember the little dwelling where Grandma lived? That little cottage under the elm that smelled of pumpkin pie? Did you ever wish to visit there again or to live there? To enjoy the pleasures of less house to clean, less taxes to pay, and more time to absorb the joys of life?
-                  </p>
-                  <p>
-                    At Lonestar we believe we can help you realize that dream with our cottages. We offer standard plans that give from <strong className="font-bold text-wood-700">350 to 900 sq ft</strong>. Larger cottages built in two units and joined on-site are also possible. The floor plan of your cottage is up to your imagination and our building specs.
-                  </p>
-                  <p>
-                    Foam insulation on floor, walls and roof keep out summer's heat and winter's cold with minimal pain to your pocketbook. Our Samsung mini-split A/C with its 10 yr parts warranty is a key factor in helping to keep bills down. With pressure treated floor systems, optional hardie siding, and metal roofs, your honey-do list will go extinct.
-                  </p>
-                  <p>
-                    All appliance hook-ups are full size and ready for you to move your appliances in place. The 40 gal water heater is wired in and ready to go. What's your preferred interior decor? Sheetrock? Metal galvalume ceilings? Knotty pine with dark walnut trim? We offer this and more. And remember; its all portable. We can haul the memories of Grandma's house home to you.
-                  </p>
-                  <p className="font-medium text-slate-900 border-l-4 border-gold-500 pl-6 my-8 py-2">
-                    Stop by one of our dealers to learn more. Or swing by our family-run shops to see a cottage in production and visit with the ones who use their skills and time to make your dream cottage become real. We want to use the Golden Rule to build your cottage, and we want to share with you the joy of living.
-                  </p>
-                </div>
-              </div>
-              <div className="grid gap-6">
-                 <img src="/cottage-brochure-4.jpg" alt="Cottage Interior" className="rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] w-full object-cover h-[28rem] hover:scale-[1.02] transition-transform duration-500" />
-                 <img src="/cottage-brochure-1.jpg" alt="Dutchlap Painted Cottages" className="rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] w-full object-cover h-64 hover:scale-[1.02] transition-transform duration-500" />
-              </div>
-            </div>
-            
-            <div className="bg-wood-900 p-8 md:p-12 rounded-[3.5rem] shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 mt-8">
-              <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-              <div className="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl -mt-24 -mr-24 pointer-events-none"></div>
-              
-              <div className="relative group w-full lg:w-1/2 rounded-3xl overflow-hidden shadow-2xl">
-                <img src="/cottage-brochure-3.jpg" alt="Cottage Exterior Layout" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]" />
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-3xl"></div>
-              </div>
-              
-              <div className="text-left z-10 w-full lg:w-1/2">
-                <div className="inline-flex items-center gap-2 mb-4 bg-wood-800/50 px-4 py-1.5 rounded-full border border-wood-700/50 text-gold-400 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-                   <Star size={14} fill="currentColor" /> Premium Upgrades Available
-                </div>
-                <h3 className="text-4xl font-serif font-bold text-white mb-6 leading-tight">Turnkey Living <span className="text-wood-300 italic">Solutions</span></h3>
-                <p className="text-wood-200 text-lg mb-10 leading-relaxed font-light">Custom interiors featuring spray foam insulation, pine trims, galvalume ceilings, and full kitchen setups ready for immediate move-in.</p>
-                
-                <div className="grid grid-cols-2 gap-5">
-                   <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors duration-300">
-                      <p className="text-gold-400 font-bold mb-2 uppercase tracking-wide text-xs">Insulation</p>
-                      <p className="text-white font-medium text-lg leading-snug">Full Spray<br/>Foam Option</p>
-                   </div>
-                   <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors duration-300">
-                      <p className="text-gold-400 font-bold mb-2 uppercase tracking-wide text-xs">Appliances</p>
-                      <p className="text-white font-medium text-lg leading-snug">Full Size<br/>Hookups</p>
-                   </div>
-                   <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors duration-300">
-                      <p className="text-gold-400 font-bold mb-2 uppercase tracking-wide text-xs">Climate</p>
-                      <p className="text-white font-medium text-lg leading-snug">Samsung<br/>Mini-Split AC</p>
-                   </div>
-                   <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors duration-300">
-                      <p className="text-gold-400 font-bold mb-2 uppercase tracking-wide text-xs">Plumbing</p>
-                      <p className="text-white font-medium text-lg leading-snug">40 Gal<br/>Pre-Wired</p>
-                   </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="w-full h-px bg-slate-200 mt-12 mb-4 relative flex items-center justify-center">
-               <div className="bg-wood-50 px-6 text-slate-400 uppercase tracking-widest font-bold text-xs absolute">Choose Your Floor Plan</div>
-            </div>
-          </motion.div>
-        )}
+
 
         {/* Staggered Grid Layout */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
