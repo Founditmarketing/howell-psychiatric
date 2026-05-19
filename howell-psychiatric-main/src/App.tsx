@@ -1,6 +1,22 @@
-import { ChevronDown, ArrowRight, ArrowLeft, Menu, X, Facebook, Instagram, ClipboardList, Video, Heart, Accessibility, Phone, MessageCircle, Sun, Type, Minus, Plus, Calendar, LayoutDashboard } from 'lucide-react';
+import { ChevronDown, ArrowRight, ArrowLeft, Menu, X, Facebook, Instagram, ClipboardList, Video, Heart, Accessibility, Phone, MessageCircle, Sun, Type, Minus, Plus, Calendar, LayoutDashboard, Loader, CheckCircle, AlertCircle } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+
+async function sendContactEmail(payload: { name?: string; email: string; phone?: string; message: string }) {
+  const res = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      firstName: payload.name,
+      email: payload.email,
+      phone: payload.phone,
+      message: payload.message,
+    }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Failed to send.');
+  return data;
+}
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -630,25 +646,65 @@ function Testimonial() {
           </div>
         </RevealOnScroll>
 
-        <RevealOnScroll className="flex-1 w-full bg-[#15453d] rounded-[2.5rem] p-8 md:p-12 text-white shadow-lg" delay={200}>
-          <h3 className="font-serif text-3xl mb-4">Request an Appointment</h3>
-          <p className="text-white/80 text-sm mb-8 leading-relaxed">Fill out the form below to begin your journey to wellness. Our team will get back to you promptly to schedule your first telehealth session.</p>
-          <form className="flex flex-col gap-4">
-            <input type="text" placeholder="Full Name" className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
-            <input type="email" placeholder="Email Address" className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
-            <input type="tel" placeholder="Phone Number" className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
-            <textarea placeholder="How can we help you?" rows={4} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5 resize-none"></textarea>
-            <button type="button" className="w-full bg-[#a0a572] text-[#15453d] py-4 rounded-xl font-bold mt-2 hover:bg-white transition-colors relative after:absolute after:inset-0 after:rounded-xl after:border-[1px] after:border-white after:content-[' '] after:hidden hover:after:block hover:after:animate-[subtlePulse_1.5s_cubic-bezier(0,0,0.2,1)_infinite]">
-              Submit Request
-            </button>
-          </form>
-        </RevealOnScroll>
+        <TestimonialForm />
       </div>
     </section>
   );
 }
 
 
+
+function TestimonialForm() {
+  const [name, setName]       = useState('');
+  const [email, setEmail]     = useState('');
+  const [phone, setPhone]     = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus]   = useState<'idle'|'loading'|'success'|'error'>('idle');
+  const [errMsg, setErrMsg]   = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading'); setErrMsg('');
+    try {
+      await sendContactEmail({ name, email, phone, message });
+      setStatus('success');
+      setName(''); setEmail(''); setPhone(''); setMessage('');
+    } catch (err: any) {
+      setStatus('error');
+      setErrMsg(err.message);
+    }
+  };
+
+  return (
+    <RevealOnScroll className="flex-1 w-full bg-[#15453d] rounded-[2.5rem] p-8 md:p-12 text-white shadow-lg" delay={200}>
+      <h3 className="font-serif text-3xl mb-4">Request an Appointment</h3>
+      <p className="text-white/80 text-sm mb-8 leading-relaxed">Fill out the form below to begin your journey to wellness. Our team will get back to you promptly to schedule your first telehealth session.</p>
+      {status === 'success' ? (
+        <div className="flex flex-col items-center text-center py-8 gap-4">
+          <CheckCircle className="w-12 h-12 text-[#a0a572]" />
+          <p className="font-serif text-2xl">Message Sent!</p>
+          <p className="text-white/70 text-sm">We'll be in touch within 24 hours.</p>
+          <button onClick={() => setStatus('idle')} className="text-xs text-white/50 hover:text-white transition-colors underline underline-offset-4 mt-2">Send another</button>
+        </div>
+      ) : (
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+          <input type="email" placeholder="Email Address" required value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+          <input type="tel" placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+          <textarea placeholder="How can we help you?" rows={4} required value={message} onChange={e => setMessage(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5 resize-none"></textarea>
+          {status === 'error' && (
+            <div className="flex items-center gap-2 text-red-300 text-xs bg-white/10 rounded-xl px-4 py-3">
+              <AlertCircle className="w-4 h-4 shrink-0" />{errMsg}
+            </div>
+          )}
+          <button type="submit" disabled={status === 'loading'} className="w-full bg-[#a0a572] text-[#15453d] py-4 rounded-xl font-bold mt-2 hover:bg-white transition-colors flex items-center justify-center gap-2 disabled:opacity-60">
+            {status === 'loading' ? <><Loader className="w-4 h-4 animate-spin" /> Sending...</> : 'Submit Request'}
+          </button>
+        </form>
+      )}
+    </RevealOnScroll>
+  );
+}
 
 function CTA() {
   return (
@@ -771,6 +827,14 @@ function StickyFooter() {
   const [fontScale, setFontScale] = useState(1);
   const [brightness, setBrightness] = useState(1);
 
+  // Message form state
+  const [msgName,    setMsgName]    = useState('');
+  const [msgEmail,   setMsgEmail]   = useState('');
+  const [msgPhone,   setMsgPhone]   = useState('');
+  const [msgText,    setMsgText]    = useState('');
+  const [msgStatus,  setMsgStatus]  = useState<'idle'|'loading'|'success'|'error'>('idle');
+  const [msgErr,     setMsgErr]     = useState('');
+
   // Handle scroll visibility
   useEffect(() => {
     const handleScroll = () => {
@@ -876,18 +940,43 @@ function StickyFooter() {
             <h3 className="font-serif text-3xl mb-2">Send a Message</h3>
             <p className="text-white/70 text-sm">We typically respond within 24 hours.</p>
           </div>
-          <button onClick={() => setIsMessageOpen(false)} className="text-white/50 hover:text-white transition-colors bg-white/10 p-2 rounded-full">
+          <button onClick={() => { setIsMessageOpen(false); setMsgStatus('idle'); }} className="text-white/50 hover:text-white transition-colors bg-white/10 p-2 rounded-full">
             <X className="w-5 h-5" />
           </button>
         </div>
-        <form className="flex flex-col gap-4">
-            <input type="text" placeholder="Full Name" className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
-            <input type="tel" placeholder="Phone Number" className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
-            <textarea placeholder="How can we help you?" rows={3} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5 resize-none"></textarea>
-            <button type="button" className="w-full bg-[#a0a572] text-[#15453d] py-4 rounded-xl font-bold mt-2 hover:bg-white transition-colors relative after:absolute after:inset-0 after:rounded-xl after:border-[1px] after:border-white after:content-[' '] after:hidden hover:after:block hover:after:animate-[subtlePulse_1.5s_cubic-bezier(0,0,0.2,1)_infinite]">
-              Submit Request
+        {msgStatus === 'success' ? (
+          <div className="flex flex-col items-center text-center py-8 gap-4">
+            <CheckCircle className="w-12 h-12 text-[#a0a572]" />
+            <p className="font-serif text-2xl">Message Sent!</p>
+            <p className="text-white/70 text-sm">We'll be in touch within 24 hours.</p>
+            <button onClick={() => { setMsgStatus('idle'); setIsMessageOpen(false); }} className="text-xs text-white/50 hover:text-white transition-colors underline underline-offset-4 mt-2">Close</button>
+          </div>
+        ) : (
+          <form className="flex flex-col gap-4" onSubmit={async (e) => {
+            e.preventDefault();
+            setMsgStatus('loading'); setMsgErr('');
+            try {
+              await sendContactEmail({ name: msgName, email: msgEmail, phone: msgPhone, message: msgText });
+              setMsgStatus('success');
+              setMsgName(''); setMsgEmail(''); setMsgPhone(''); setMsgText('');
+            } catch (err: any) {
+              setMsgStatus('error'); setMsgErr(err.message);
+            }
+          }}>
+            <input type="text" placeholder="Full Name" value={msgName} onChange={e => setMsgName(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+            <input type="email" placeholder="Email Address" required value={msgEmail} onChange={e => setMsgEmail(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+            <input type="tel" placeholder="Phone Number" value={msgPhone} onChange={e => setMsgPhone(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5" />
+            <textarea placeholder="How can we help you?" rows={3} required value={msgText} onChange={e => setMsgText(e.target.value)} className="w-full bg-white/10 text-white placeholder:text-white/60 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#a0a572] transition-all text-sm border border-white/5 resize-none"></textarea>
+            {msgStatus === 'error' && (
+              <div className="flex items-center gap-2 text-red-300 text-xs bg-white/10 rounded-xl px-4 py-3">
+                <AlertCircle className="w-4 h-4 shrink-0" />{msgErr}
+              </div>
+            )}
+            <button type="submit" disabled={msgStatus === 'loading'} className="w-full bg-[#a0a572] text-[#15453d] py-4 rounded-xl font-bold mt-2 hover:bg-white transition-colors flex items-center justify-center gap-2 disabled:opacity-60">
+              {msgStatus === 'loading' ? <><Loader className="w-4 h-4 animate-spin" /> Sending...</> : 'Submit Request'}
             </button>
-        </form>
+          </form>
+        )}
       </div>
 
       {/* Sticky Bar */}
