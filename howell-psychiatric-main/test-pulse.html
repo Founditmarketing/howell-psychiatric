@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.hover-pulse {
+  position: relative;
+  background: #15453d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  display: inline-block;
+  cursor: pointer;
+  margin: 50px;
+}
+.hover-pulse::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  border: 2px solid #15453d;
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes ghostPulse {
+  0% {
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.8;
+  }
+  100% {
+    top: -12px; left: -12px; right: -12px; bottom: -12px;
+    opacity: 0;
+  }
+}
+.hover-pulse:hover::after {
+  animation: ghostPulse 1s ease-out infinite;
+}
+</style>
+</head>
+<body>
+  <div class="hover-pulse">Hover me</div>
+</body>
+</html>
