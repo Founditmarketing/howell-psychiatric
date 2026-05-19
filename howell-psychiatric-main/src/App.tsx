@@ -1,4 +1,4 @@
-import { ChevronDown, ArrowRight, ArrowLeft, Menu, X, Facebook, Instagram, ClipboardList, Video, Heart, Accessibility, Phone, MessageCircle, Sun, Type, Minus, Plus, Calendar } from 'lucide-react';
+import { ChevronDown, ArrowRight, ArrowLeft, Menu, X, Facebook, Instagram, ClipboardList, Video, Heart, Accessibility, Phone, MessageCircle, Sun, Type, Minus, Plus, Calendar, LayoutDashboard } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import Contact from './pages/Contact';
@@ -74,6 +74,10 @@ function Header({ showContent = true }: { showContent?: boolean }) {
           <a href="#" className="hidden md:flex text-gray-400 hover:text-pink-600 transition-colors mr-2" aria-label="Instagram">
             <Instagram className="w-5 h-5" />
           </a>
+          <a href="https://34921-1.portal.athenahealth.com/" target="_blank" rel="noopener noreferrer" className="hidden lg:inline-flex items-center gap-2 border border-[#15453d]/30 text-[#15453d] px-5 lg:px-6 py-2.5 rounded-xl font-medium hover:bg-[#15453d] hover:text-white hover:border-[#15453d] transition-all whitespace-nowrap">
+            <LayoutDashboard className="w-4 h-4" />
+            Patient Portal
+          </a>
           <a href="https://vosita.com/doctor/Amy-howell-aprn/" target="_blank" rel="noopener noreferrer" className="hidden lg:inline-flex items-center gap-2 bg-[#a0a572] text-white px-5 lg:px-6 py-2.5 rounded-xl font-medium border border-transparent hover:bg-white hover:text-[#15453d] hover:border-[#a0a572] transition-all relative after:absolute after:inset-0 after:rounded-xl after:border-[1px] after:border-[#a0a572] after:content-[' '] after:hidden hover:after:block hover:after:animate-[subtlePulse_1.5s_cubic-bezier(0,0,0.2,1)_infinite] whitespace-nowrap">
             <Calendar className="w-4 h-4" />
             Book Appointment
@@ -122,6 +126,16 @@ function Header({ showContent = true }: { showContent?: boolean }) {
               {item.name}
             </Link>
           ))}
+          <a
+            href="https://34921-1.portal.athenahealth.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-2xl font-serif text-[#15453d] hover:text-[#a0a572] transition-colors flex items-center gap-3"
+          >
+            Patient Portal
+            <LayoutDashboard className="w-5 h-5 opacity-50" />
+          </a>
         </nav>
       </div>
       <div className="p-8 border-t border-gray-100 flex flex-col gap-8 bg-gray-50/50">
@@ -129,6 +143,16 @@ function Header({ showContent = true }: { showContent?: boolean }) {
           <a href="#" className="w-12 h-12 rounded-full bg-white shadow-[0_4px_20px_rgb(0,0,0,0.05)] flex items-center justify-center text-[#15453d] hover:text-blue-600 hover:scale-110 transition-all"><Facebook className="w-6 h-6" /></a>
           <a href="#" className="w-12 h-12 rounded-full bg-white shadow-[0_4px_20px_rgb(0,0,0,0.05)] flex items-center justify-center text-[#15453d] hover:text-pink-600 hover:scale-110 transition-all"><Instagram className="w-6 h-6" /></a>
         </div>
+        <a 
+          href="https://34921-1.portal.athenahealth.com/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          onClick={() => setMobileMenuOpen(false)}
+          className="w-full border border-[#15453d]/30 text-[#15453d] py-4 rounded-xl font-bold text-center hover:bg-[#15453d] hover:text-white transition-colors flex items-center justify-center gap-2"
+        >
+          <LayoutDashboard className="w-5 h-5" />
+          Patient Portal
+        </a>
         <a 
           href="https://vosita.com/doctor/Amy-howell-aprn/" 
           target="_blank" 
@@ -705,6 +729,10 @@ function Footer() {
             <Link to="/conditions" className="text-[#15453d] hover:underline">Conditions Treated</Link>
             <Link to="/about" className="text-[#15453d] hover:underline">About Us</Link>
             <Link to="/faq" className="text-[#15453d] hover:underline">FAQ</Link>
+            <a href="https://34921-1.portal.athenahealth.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[#15453d] font-semibold hover:text-[#a0a572] transition-colors">
+              <LayoutDashboard className="w-4 h-4" />
+              Patient Portal
+            </a>
           </div>
           <div className="flex flex-col gap-4 lg:pt-8">
             <p className="text-gray-500 mb-2 font-medium">Hours of Operation</p>
@@ -864,14 +892,14 @@ function StickyFooter() {
 
       {/* Sticky Bar */}
       <div className={`fixed bottom-0 md:bottom-6 left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-auto z-[95] transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-24 pointer-events-none'}`}>
-        <div className="bg-[#10342e] md:bg-[#15453d]/95 backdrop-blur-2xl md:rounded-2xl px-6 pt-2 pb-4 md:px-10 md:py-2.5 flex items-center justify-between md:justify-center gap-4 md:gap-14 shadow-[0_-15px_40px_rgba(0,0,0,0.25)] md:shadow-[0_10px_40px_rgba(0,0,0,0.3)] border-t border-white/10 md:border relative">
+        <div className="bg-[#10342e] md:bg-[#15453d]/95 backdrop-blur-2xl md:rounded-2xl px-4 pt-2 pb-4 md:px-10 md:py-2.5 flex items-center justify-between md:justify-center gap-2 md:gap-10 shadow-[0_-15px_40px_rgba(0,0,0,0.25)] md:shadow-[0_10px_40px_rgba(0,0,0,0.3)] border-t border-white/10 md:border relative">
           
           <button 
             onClick={() => { setIsAccessibilityOpen(!isAccessibilityOpen); setIsMessageOpen(false); }}
-            className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 w-[72px] py-1.5 rounded-2xl md:w-auto md:py-0 md:rounded-none group ${isAccessibilityOpen ? 'bg-white/15 md:bg-transparent text-[#a0a572]' : 'bg-white/5 md:bg-transparent text-white/70 hover:text-white md:hover:bg-transparent'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 w-[64px] py-1.5 rounded-2xl md:w-auto md:py-0 md:rounded-none group ${isAccessibilityOpen ? 'bg-white/15 md:bg-transparent text-[#a0a572]' : 'bg-white/5 md:bg-transparent text-white/70 hover:text-white md:hover:bg-transparent'}`}
           >
             <div className={`p-1 md:p-2 rounded-full transition-all duration-300 ${isAccessibilityOpen ? 'scale-110 md:bg-[#a0a572]/15' : 'md:group-hover:bg-white/10'}`}>
-              <Accessibility className="w-5 h-5 md:w-5 md:h-5" />
+              <Accessibility className="w-5 h-5" />
             </div>
             <span className="text-[10px] md:text-[9px] font-medium md:font-bold md:tracking-widest md:uppercase">Access</span>
           </button>
@@ -890,12 +918,26 @@ function StickyFooter() {
 
           <div className="w-px h-8 bg-white/10 hidden md:block" />
 
+          <a
+            href="https://34921-1.portal.athenahealth.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 w-[64px] py-1.5 rounded-2xl md:w-auto md:py-0 md:rounded-none group bg-white/5 md:bg-transparent text-white/70 hover:text-white md:hover:bg-transparent"
+          >
+            <div className="p-1 md:p-2 rounded-full transition-all duration-300 md:group-hover:bg-white/10">
+              <LayoutDashboard className="w-5 h-5" />
+            </div>
+            <span className="text-[10px] md:text-[9px] font-medium md:font-bold md:tracking-widest md:uppercase">Portal</span>
+          </a>
+
+          <div className="w-px h-8 bg-white/10 hidden md:block" />
+
           <button 
             onClick={() => { setIsMessageOpen(!isMessageOpen); setIsAccessibilityOpen(false); }}
-            className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 w-[72px] py-1.5 rounded-2xl md:w-auto md:py-0 md:rounded-none group ${isMessageOpen ? 'bg-white/15 md:bg-transparent text-[#a0a572]' : 'bg-white/5 md:bg-transparent text-white/70 hover:text-white md:hover:bg-transparent'}`}
+            className={`flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 w-[64px] py-1.5 rounded-2xl md:w-auto md:py-0 md:rounded-none group ${isMessageOpen ? 'bg-white/15 md:bg-transparent text-[#a0a572]' : 'bg-white/5 md:bg-transparent text-white/70 hover:text-white md:hover:bg-transparent'}`}
           >
             <div className={`p-1 md:p-2 rounded-full transition-all duration-300 ${isMessageOpen ? 'scale-110 md:bg-[#a0a572]/15' : 'md:group-hover:bg-white/10'}`}>
-              <MessageCircle className="w-5 h-5 md:w-5 md:h-5" />
+              <MessageCircle className="w-5 h-5" />
             </div>
             <span className="text-[10px] md:text-[9px] font-medium md:font-bold md:tracking-widest md:uppercase">Message</span>
           </button>
