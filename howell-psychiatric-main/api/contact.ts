@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM_ADDRESS = 'hello@howellpsychiatric.com';
+const FROM_ADDRESS = 'onboarding@resend.dev';
 const TO_ADDRESS   = 'jason@founditmarketing.com';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
