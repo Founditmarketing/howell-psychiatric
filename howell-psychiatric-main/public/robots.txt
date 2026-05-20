@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://howellpsychiatric.com/sitemap.xml
+Sitemap: https://howell-psychiatric-mental-wellness-llc.com/sitemap.xml
