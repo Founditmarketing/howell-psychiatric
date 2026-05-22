@@ -73,13 +73,13 @@ export default function Contact({ showContent = true }: { showContent?: boolean 
                   </div>
                 </a>
 
-                <a href="mailto:hello@howellpsychiatric.com" className="flex items-start gap-5 hover:text-[#a0a572] transition-colors group/link overflow-hidden">
+                <a href="mailto:amy@howell-psychiatric-mental-wellness.com" className="flex items-start gap-5 hover:text-[#a0a572] transition-colors group/link overflow-hidden">
                   <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 group-hover/link:bg-white/20 transition-colors">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-white/60 text-sm mb-1 uppercase tracking-wider font-semibold">Email</p>
-                    <p className="text-lg md:text-xl font-medium break-all">hello@howellpsychiatric.com</p>
+                    <p className="text-lg md:text-xl font-medium break-all">amy@howell-psychiatric-mental-wellness.com</p>
                   </div>
                 </a>
 

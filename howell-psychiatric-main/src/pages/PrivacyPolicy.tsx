@@ -71,8 +71,8 @@ export default function PrivacyPolicy({ showContent = true }: { showContent?: bo
               We are committed to transparency and open communication. If you have any questions or concerns regarding our privacy practices or how your information is handled by Howell Psychiatric Mental Wellness LLC, please feel free to reach out to us.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-              <a href="mailto:info@howell-psychiatric-mental-wellness-llc.com" className="bg-[#a0a572] text-[#15453d] px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#15453d] transition-colors break-all text-sm md:text-base w-full sm:w-auto">
-                info@howell-psychiatric-mental-wellness-llc.com
+              <a href="mailto:amy@howell-psychiatric-mental-wellness.com" className="bg-[#a0a572] text-[#15453d] px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#15453d] transition-colors break-all text-sm md:text-base w-full sm:w-auto">
+                amy@howell-psychiatric-mental-wellness.com
               </a>
               <a href="tel:470-601-6189" className="bg-transparent border border-[#a0a572] text-[#a0a572] px-6 py-3 rounded-xl font-bold hover:bg-[#a0a572] hover:text-[#15453d] transition-colors whitespace-nowrap w-full sm:w-auto">
                 470-601-6189

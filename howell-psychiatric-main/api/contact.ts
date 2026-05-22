@@ -3,8 +3,8 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM_ADDRESS = 'info@howell-psychiatric-mental-wellness-llc.com';
-const TO_ADDRESS   = 'info@howell-psychiatric-mental-wellness-llc.com';
+const FROM_ADDRESS = 'amy@howell-psychiatric-mental-wellness.com';
+const TO_ADDRESS   = 'amy@howell-psychiatric-mental-wellness.com';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Only accept POST

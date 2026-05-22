@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     question: "Do you accept insurance, and how do payments work?",
-    answer: <>We strive to make our services accessible. Please contact us directly at <a href="tel:470-601-6189" className="text-[#15453d] hover:text-[#a0a572] transition-colors font-bold underline">470-601-6189</a> or <a href="mailto:hello@howellpsychiatric.com" className="text-[#15453d] hover:text-[#a0a572] transition-colors font-bold underline break-all">hello@howellpsychiatric.com</a> to discuss insurance options and payment plans. We can help you understand your benefits and outline payment arrangements.</>
+    answer: <>We strive to make our services accessible. Please contact us directly at <a href="tel:470-601-6189" className="text-[#15453d] hover:text-[#a0a572] transition-colors font-bold underline">470-601-6189</a> or <a href="mailto:amy@howell-psychiatric-mental-wellness.com" className="text-[#15453d] hover:text-[#a0a572] transition-colors font-bold underline break-all">amy@howell-psychiatric-mental-wellness.com</a> to discuss insurance options and payment plans. We can help you understand your benefits and outline payment arrangements.</>
   },
   {
     question: "How often will my appointments be, and what is the typical duration?",

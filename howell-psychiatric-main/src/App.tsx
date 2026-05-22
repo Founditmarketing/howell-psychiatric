@@ -799,7 +799,7 @@ function Footer() {
           <div className="flex flex-col gap-4 lg:pt-8">
             <p className="text-gray-500 mb-2 font-medium">Contact</p>
             <a href="tel:470-601-6189" className="text-[#15453d] hover:underline">470-601-6189</a>
-            <a href="mailto:info@howell-psychiatric-mental-wellness-llc.com" className="text-[#15453d] hover:underline break-all">info@howell-psychiatric-mental-wellness-llc.com</a>
+            <a href="mailto:amy@howell-psychiatric-mental-wellness.com" className="text-[#15453d] hover:underline break-all">amy@howell-psychiatric-mental-wellness.com</a>
             <span className="text-[#15453d]">Serving adults in Iowa, Georgia, and Vermont</span>
           </div>
         </div>
